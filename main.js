@@ -1,16 +1,29 @@
-function main() {
-    const myPets = new Map();
-    myPets.set('Gunner', 'a terrier');
-    myPets.set('Grayson', 'crazy');
-    myPets.set('Filamena', 'a lab');
-    myPets.set('Copper', 'a sheltie');
-    myPets.set('Chance', 'a terrier');
-    myPets.set('Teak', 'a elkhound');
-    myPets.set('Max', 'a elkhound');
+import input from 'input'
 
-    myPets.forEach((description, name) => {
-        console.log(`${name} is ${description}.`);
-    });
+async function prompt(grades) {
+    while (true) {
+        let name = await input.text('What is the student name(or "cancel")?');
+        if (name.toLowerCase() == 'cancel') {
+            break;
+        } else {
+        let grade = await input.text('What is the grade?');
+        grades.set(name, grade);
+        }
+    }
+}
+
+function display(grades) {
+    for (const [name, grade] of grades) {
+    
+    console.log(`${name} has a ${grade}%.`);
+    }
+}
+
+async function main() {
+    const grades = new Map();
+
+    await prompt(grades);
+    display(grades);
 }
 
 main();
