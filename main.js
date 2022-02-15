@@ -1,29 +1,31 @@
 import input from 'input'
 
-async function prompt(grades) {
+async function prompt(cars) {
     while (true) {
-        let name = await input.text('What is the student name(or "cancel")?');
-        if (name.toLowerCase() == 'cancel') {
-            break;
-        } else {
-        let grade = await input.text('What is the grade?');
-        grades.set(name, grade);
+        const name = await input.text('What is your name?');
+        const car = {
+            make: await input.text('What is the make of your car?'),
+            model: await input.text('What is the model of your car?'),
+            year: await input.text('What is the year of your car?'),
         }
+        cars.set(name, car)
+        const finished = await input.text('Are you finished?');
+            if (finished) {
+                break;
+            }
     }
 }
 
-function display(grades) {
-    for (const [name, grade] of grades) {
-    
-    console.log(`${name} has a ${grade}%.`);
+function display(cars) {
+    for (const [name, car] of cars) {
+    console.log(`${name} has a ${car.year} ${car.make} ${car.model}.`);
     }
 }
 
 async function main() {
-    const grades = new Map();
-
-    await prompt(grades);
-    display(grades);
+    const myCars = new Map();
+    await prompt(myCars);
+    display(myCars);
 }
 
 main();
